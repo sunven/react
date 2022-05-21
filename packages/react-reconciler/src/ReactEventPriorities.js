@@ -12,6 +12,7 @@ import {enableNewReconciler} from 'shared/ReactFeatureFlags';
 import {
   DiscreteEventPriority as DiscreteEventPriority_old,
   ContinuousEventPriority as ContinuousEventPriority_old,
+  UnknownEventPriority as UnknownEventPriority_old,
   DefaultEventPriority as DefaultEventPriority_old,
   IdleEventPriority as IdleEventPriority_old,
   getCurrentUpdatePriority as getCurrentUpdatePriority_old,
@@ -23,6 +24,7 @@ import {
 import {
   DiscreteEventPriority as DiscreteEventPriority_new,
   ContinuousEventPriority as ContinuousEventPriority_new,
+  UnknownEventPriority as UnknownEventPriority_new,
   DefaultEventPriority as DefaultEventPriority_new,
   IdleEventPriority as IdleEventPriority_new,
   getCurrentUpdatePriority as getCurrentUpdatePriority_new,
@@ -39,6 +41,9 @@ export const DiscreteEventPriority: EventPriority = enableNewReconciler
 export const ContinuousEventPriority: EventPriority = enableNewReconciler
   ? (ContinuousEventPriority_new: any)
   : (ContinuousEventPriority_old: any);
+export const UnknownEventPriority: EventPriority = enableNewReconciler
+  ? (UnknownEventPriority_new: any)
+  : (UnknownEventPriority_old: any);
 export const DefaultEventPriority: EventPriority = enableNewReconciler
   ? (DefaultEventPriority_new: any)
   : (DefaultEventPriority_old: any);

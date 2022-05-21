@@ -38,6 +38,7 @@ import {
   enableUpdaterTracking,
   enableCache,
   enableTransitionTracing,
+  enableUnknownLane,
 } from 'shared/ReactFeatureFlags';
 import ReactSharedInternals from 'shared/ReactSharedInternals';
 import is from 'shared/objectIs';
@@ -79,6 +80,8 @@ import {
   afterActiveInstanceBlur,
   getCurrentEventPriority,
   supportsMicrotasks,
+  supportsAnimationFrame,
+  scheduleAnimationFrame,
   errorHydratingContainer,
   scheduleMicrotask,
 } from './ReactFiberHostConfig';
@@ -122,6 +125,7 @@ import {
   NoLanes,
   NoLane,
   SyncLane,
+  UnknownLane,
   NoTimestamp,
   claimNextTransitionLane,
   claimNextRetryLane,
@@ -763,7 +767,8 @@ function ensureRootIsScheduled(root: FiberRoot, currentTime: number) {
 
   if (nextLanes === NoLanes) {
     // Special case: There's nothing to work on.
-    if (existingCallbackNode !== null) {
+    // TODO: cancel rAF?
+    if (existingCallbackNode != null) {
       cancelCallback(existingCallbackNode);
     }
     root.callbackNode = null;
@@ -793,7 +798,8 @@ function ensureRootIsScheduled(root: FiberRoot, currentTime: number) {
       // TODO: Temporary until we confirm this warning is not fired.
       if (
         existingCallbackNode == null &&
-        existingCallbackPriority !== SyncLane
+        existingCallbackPriority !== SyncLane &&
+        existingCallbackPriority !== UnknownLane
       ) {
         console.error(
           'Expected scheduled callback to exist. This error is likely caused by a bug in React. Please file an issue.',
@@ -850,6 +856,21 @@ function ensureRootIsScheduled(root: FiberRoot, currentTime: number) {
       scheduleCallback(ImmediateSchedulerPriority, flushSyncCallbacks);
     }
     newCallbackNode = null;
+  } else if (enableUnknownLane && newCallbackPriority === UnknownLane) {
+    if (supportsAnimationFrame) {
+      if (__DEV__ && ReactCurrentActQueue.current !== null) {
+        ReactCurrentActQueue.current.push(
+          performConcurrentWorkOnRoot.bind(null, root),
+        );
+      } else {
+        scheduleAnimationFrame(performConcurrentWorkOnRoot.bind(null, root));
+      }
+    } else {
+      newCallbackNode = scheduleCallback(
+        NormalSchedulerPriority,
+        performConcurrentWorkOnRoot.bind(null, root),
+      );
+    }
   } else {
     let schedulerPriorityLevel;
     switch (lanesToEventPriority(nextLanes)) {

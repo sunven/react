@@ -138,7 +138,7 @@ describe('Timeline profiler', () => {
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
           "--layout-effects-start-1",
           "--layout-effects-stop",
           "--commit-stop",
@@ -151,10 +151,10 @@ describe('Timeline profiler', () => {
       renderRootHelper(<div />);
 
       expect(clearedMarks).toMatchInlineSnapshot(`
-            Array [
-              "--schedule-render-16",
-            ]
-        `);
+        Array [
+          "--schedule-render-64",
+        ]
+      `);
 
       clearPendingMarks();
 
@@ -162,15 +162,15 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--render-start-16",
+          "--render-start-64",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--layout-effects-stop",
           "--commit-stop",
         ]
@@ -197,14 +197,14 @@ describe('Timeline profiler', () => {
       expect(Scheduler).toFlushAndYieldThrough(['Foo']);
 
       expect(clearedMarks).toMatchInlineSnapshot(`
-            Array [
-              "--schedule-render-64",
-              "--render-start-64",
-              "--component-render-start-Foo",
-              "--component-render-stop",
-              "--render-yield",
-            ]
-        `);
+        Array [
+          "--schedule-render-256",
+          "--render-start-256",
+          "--component-render-start-Foo",
+          "--component-render-stop",
+          "--render-yield",
+        ]
+      `);
     });
 
     // @reactVersion >=18.0
@@ -233,7 +233,7 @@ describe('Timeline profiler', () => {
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
           "--layout-effects-start-1",
           "--layout-effects-stop",
           "--commit-stop",
@@ -276,7 +276,7 @@ describe('Timeline profiler', () => {
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
           "--layout-effects-start-1",
           "--layout-effects-stop",
           "--commit-stop",
@@ -303,10 +303,10 @@ describe('Timeline profiler', () => {
       );
 
       expect(clearedMarks).toMatchInlineSnapshot(`
-            Array [
-              "--schedule-render-16",
-            ]
-        `);
+        Array [
+          "--schedule-render-64",
+        ]
+      `);
 
       clearPendingMarks();
 
@@ -314,18 +314,18 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--render-start-16",
+          "--render-start-64",
           "--component-render-start-Example",
           "--component-render-stop",
-          "--suspense-suspend-0-Example-mount-16-",
+          "--suspense-suspend-0-Example-mount-64-",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--layout-effects-stop",
           "--commit-stop",
         ]
@@ -355,10 +355,10 @@ describe('Timeline profiler', () => {
       );
 
       expect(clearedMarks).toMatchInlineSnapshot(`
-            Array [
-              "--schedule-render-16",
-            ]
-        `);
+        Array [
+          "--schedule-render-64",
+        ]
+      `);
 
       clearPendingMarks();
 
@@ -366,18 +366,18 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--render-start-16",
+          "--render-start-64",
           "--component-render-start-Example",
           "--component-render-stop",
-          "--suspense-suspend-0-Example-mount-16-",
+          "--suspense-suspend-0-Example-mount-64-",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--layout-effects-stop",
           "--commit-stop",
         ]
@@ -408,10 +408,10 @@ describe('Timeline profiler', () => {
       renderRootHelper(<Example />);
 
       expect(clearedMarks).toMatchInlineSnapshot(`
-            Array [
-              "--schedule-render-16",
-            ]
-        `);
+        Array [
+          "--schedule-render-64",
+        ]
+      `);
 
       clearPendingMarks();
 
@@ -419,17 +419,17 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--render-start-16",
+          "--render-start-64",
           "--component-render-start-Example",
           "--component-render-stop",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--schedule-state-update-1-Example",
           "--layout-effects-stop",
           "--render-start-1",
@@ -441,7 +441,7 @@ describe('Timeline profiler', () => {
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
           "--commit-stop",
           "--commit-stop",
         ]
@@ -462,10 +462,10 @@ describe('Timeline profiler', () => {
       renderRootHelper(<Example />);
 
       expect(clearedMarks).toMatchInlineSnapshot(`
-                Array [
-                  "--schedule-render-16",
-                ]
-          `);
+        Array [
+          "--schedule-render-64",
+        ]
+      `);
 
       clearPendingMarks();
 
@@ -473,17 +473,17 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--render-start-16",
+          "--render-start-64",
           "--component-render-start-Example",
           "--component-render-stop",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--schedule-forced-update-1-Example",
           "--layout-effects-stop",
           "--render-start-1",
@@ -495,7 +495,7 @@ describe('Timeline profiler', () => {
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
           "--commit-stop",
           "--commit-stop",
         ]
@@ -517,10 +517,10 @@ describe('Timeline profiler', () => {
       renderRootHelper(<Example />);
 
       expect(clearedMarks).toMatchInlineSnapshot(`
-                Array [
-                  "--schedule-render-16",
-                ]
-          `);
+        Array [
+          "--schedule-render-64",
+        ]
+      `);
 
       clearPendingMarks();
 
@@ -538,18 +538,18 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--render-start-16",
+          "--render-start-64",
           "--component-render-start-Example",
-          "--schedule-state-update-16-Example",
+          "--schedule-state-update-64-Example",
           "--component-render-stop",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--layout-effects-stop",
           "--commit-stop",
         ]
@@ -572,10 +572,10 @@ describe('Timeline profiler', () => {
       renderRootHelper(<Example />);
 
       expect(clearedMarks).toMatchInlineSnapshot(`
-                Array [
-                  "--schedule-render-16",
-                ]
-          `);
+        Array [
+          "--schedule-render-64",
+        ]
+      `);
 
       clearPendingMarks();
 
@@ -593,18 +593,18 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--render-start-16",
+          "--render-start-64",
           "--component-render-start-Example",
-          "--schedule-forced-update-16-Example",
+          "--schedule-forced-update-64-Example",
           "--component-render-stop",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--layout-effects-stop",
           "--commit-stop",
         ]
@@ -624,10 +624,10 @@ describe('Timeline profiler', () => {
       renderRootHelper(<Example />);
 
       expect(clearedMarks).toMatchInlineSnapshot(`
-                Array [
-                  "--schedule-render-16",
-                ]
-          `);
+        Array [
+          "--schedule-render-64",
+        ]
+      `);
 
       clearPendingMarks();
 
@@ -635,17 +635,17 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--render-start-16",
+          "--render-start-64",
           "--component-render-start-Example",
           "--component-render-stop",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--component-layout-effect-mount-start-Example",
           "--schedule-state-update-1-Example",
           "--component-layout-effect-mount-stop",
@@ -659,7 +659,7 @@ describe('Timeline profiler', () => {
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
           "--commit-stop",
           "--commit-stop",
         ]
@@ -682,35 +682,35 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--schedule-render-16",
-          "--render-start-16",
+          "--schedule-render-64",
+          "--render-start-64",
           "--component-render-start-Example",
           "--component-render-stop",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--layout-effects-stop",
           "--commit-stop",
-          "--passive-effects-start-16",
+          "--passive-effects-start-64",
           "--component-passive-effect-mount-start-Example",
-          "--schedule-state-update-16-Example",
+          "--schedule-state-update-64-Example",
           "--component-passive-effect-mount-stop",
           "--passive-effects-stop",
-          "--render-start-16",
+          "--render-start-64",
           "--component-render-start-Example",
           "--component-render-stop",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
           "--commit-stop",
         ]
       `);
@@ -732,19 +732,19 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--schedule-render-16",
-          "--render-start-16",
+          "--schedule-render-64",
+          "--render-start-64",
           "--component-render-start-Example",
-          "--schedule-state-update-16-Example",
+          "--schedule-state-update-64-Example",
           "--component-render-stop",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--layout-effects-stop",
           "--commit-stop",
         ]
@@ -794,7 +794,7 @@ describe('Timeline profiler', () => {
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
           "--layout-effects-start-1",
           "--schedule-state-update-1-ErrorBoundary",
           "--layout-effects-stop",
@@ -808,7 +808,7 @@ describe('Timeline profiler', () => {
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
           "--commit-stop",
         ]
       `);
@@ -843,10 +843,10 @@ describe('Timeline profiler', () => {
       );
 
       expect(clearedMarks).toMatchInlineSnapshot(`
-                Array [
-                  "--schedule-render-16",
-                ]
-          `);
+        Array [
+          "--schedule-render-64",
+        ]
+      `);
 
       clearPendingMarks();
 
@@ -854,7 +854,7 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--render-start-16",
+          "--render-start-64",
           "--component-render-start-ErrorBoundary",
           "--component-render-stop",
           "--component-render-start-ExampleThatThrows",
@@ -862,7 +862,7 @@ describe('Timeline profiler', () => {
           "--component-render-stop",
           "--error-ExampleThatThrows-mount-Expected error",
           "--render-stop",
-          "--render-start-16",
+          "--render-start-64",
           "--component-render-start-ErrorBoundary",
           "--component-render-stop",
           "--component-render-start-ExampleThatThrows",
@@ -870,13 +870,13 @@ describe('Timeline profiler', () => {
           "--component-render-stop",
           "--error-ExampleThatThrows-mount-Expected error",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--schedule-state-update-1-ErrorBoundary",
           "--layout-effects-stop",
           "--render-start-1",
@@ -888,7 +888,7 @@ describe('Timeline profiler', () => {
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
           "--commit-stop",
           "--commit-stop",
         ]
@@ -945,18 +945,18 @@ describe('Timeline profiler', () => {
 
       expect(clearedMarks).toMatchInlineSnapshot(`
         Array [
-          "--schedule-render-16",
-          "--render-start-16",
+          "--schedule-render-64",
+          "--render-start-64",
           "--component-render-start-ComponentWithEffects",
           "--component-render-stop",
           "--render-stop",
-          "--commit-start-16",
+          "--commit-start-64",
           "--react-version-<filtered-version>",
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
-          "--layout-effects-start-16",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--layout-effects-start-64",
           "--component-layout-effect-mount-start-ComponentWithEffects",
           "--component-layout-effect-mount-stop",
           "--component-layout-effect-mount-start-ComponentWithEffects",
@@ -975,17 +975,17 @@ describe('Timeline profiler', () => {
       ]);
 
       expect(clearedMarks).toMatchInlineSnapshot(`
-            Array [
-              "--passive-effects-start-16",
-              "--component-passive-effect-mount-start-ComponentWithEffects",
-              "--component-passive-effect-mount-stop",
-              "--component-passive-effect-mount-start-ComponentWithEffects",
-              "--component-passive-effect-mount-stop",
-              "--component-passive-effect-mount-start-ComponentWithEffects",
-              "--component-passive-effect-mount-stop",
-              "--passive-effects-stop",
-            ]
-        `);
+        Array [
+          "--passive-effects-start-64",
+          "--component-passive-effect-mount-start-ComponentWithEffects",
+          "--component-passive-effect-mount-stop",
+          "--component-passive-effect-mount-start-ComponentWithEffects",
+          "--component-passive-effect-mount-stop",
+          "--component-passive-effect-mount-start-ComponentWithEffects",
+          "--component-passive-effect-mount-stop",
+          "--passive-effects-stop",
+        ]
+      `);
 
       clearPendingMarks();
 
@@ -1011,7 +1011,7 @@ describe('Timeline profiler', () => {
           "--profiler-version-1",
           "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
           "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+          "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
           "--component-layout-effect-unmount-start-ComponentWithEffects",
           "--component-layout-effect-unmount-stop",
           "--component-layout-effect-unmount-start-ComponentWithEffects",
@@ -1046,7 +1046,7 @@ describe('Timeline profiler', () => {
             "--profiler-version-1",
             "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
             "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-            "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+            "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
             "--layout-effects-start-1",
             "--layout-effects-stop",
             "--commit-stop",
@@ -1058,10 +1058,10 @@ describe('Timeline profiler', () => {
       it('regression test DefaultLane', () => {
         renderRootHelper(<div />);
         expect(clearedMarks).toMatchInlineSnapshot(`
-                    Array [
-                      "--schedule-render-16",
-                    ]
-              `);
+          Array [
+            "--schedule-render-64",
+          ]
+        `);
       });
 
       // @reactVersion >=18.0
@@ -1098,7 +1098,7 @@ describe('Timeline profiler', () => {
             "--profiler-version-1",
             "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
             "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-            "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+            "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
             "--layout-effects-start-1",
             "--layout-effects-stop",
             "--commit-stop",
@@ -1139,7 +1139,7 @@ describe('Timeline profiler', () => {
             "--profiler-version-1",
             "--react-internal-module-start-  at filtered (<anonymous>:0:0)",
             "--react-internal-module-stop-  at filtered (<anonymous>:1:1)",
-            "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
+            "--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,UnknownHydrationLane,Unknown,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen",
             "--layout-effects-start-4",
             "--layout-effects-stop",
             "--commit-stop",
@@ -1216,7 +1216,7 @@ describe('Timeline profiler', () => {
         expect(timelineData.schedulingEvents).toMatchInlineSnapshot(`
           Array [
             Object {
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 10,
               "type": "schedule-render",
               "warning": null,
@@ -1263,14 +1263,14 @@ describe('Timeline profiler', () => {
             },
             Object {
               "componentName": "Example",
-              "lanes": "0b0000000000000000000000001000000",
+              "lanes": "0b0000000000000000000000100000000",
               "timestamp": 10,
               "type": "schedule-state-update",
               "warning": null,
             },
             Object {
               "componentName": "Example",
-              "lanes": "0b0000000000000000000000001000000",
+              "lanes": "0b0000000000000000000000100000000",
               "timestamp": 10,
               "type": "schedule-state-update",
               "warning": null,
@@ -1300,9 +1300,16 @@ describe('Timeline profiler', () => {
               "type": "render",
               "warning": null,
             },
+            Object {
+              "componentName": "Example",
+              "duration": 10,
+              "timestamp": 20,
+              "type": "render",
+              "warning": null,
+            },
           ]
         `);
-        expect(timelineData.batchUIDToMeasuresMap.size).toBe(2);
+        expect(timelineData.batchUIDToMeasuresMap.size).toBe(3);
       });
 
       // @reactVersion >=18.0
@@ -1607,7 +1614,7 @@ describe('Timeline profiler', () => {
         expect(timelineData.schedulingEvents).toMatchInlineSnapshot(`
           Array [
             Object {
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 10,
               "type": "schedule-render",
               "warning": null,
@@ -1665,7 +1672,7 @@ describe('Timeline profiler', () => {
         expect(timelineData.schedulingEvents).toMatchInlineSnapshot(`
           Array [
             Object {
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 10,
               "type": "schedule-render",
               "warning": null,
@@ -1734,14 +1741,14 @@ describe('Timeline profiler', () => {
         expect(timelineData.schedulingEvents).toMatchInlineSnapshot(`
           Array [
             Object {
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 10,
               "type": "schedule-render",
               "warning": null,
             },
             Object {
               "componentName": "Example",
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 10,
               "type": "schedule-state-update",
               "warning": null,
@@ -1802,14 +1809,14 @@ describe('Timeline profiler', () => {
         expect(timelineData.schedulingEvents).toMatchInlineSnapshot(`
           Array [
             Object {
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 10,
               "type": "schedule-render",
               "warning": null,
             },
             Object {
               "componentName": "Example",
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 20,
               "type": "schedule-force-update",
               "warning": null,
@@ -1865,7 +1872,7 @@ describe('Timeline profiler', () => {
         expect(timelineData.schedulingEvents).toMatchInlineSnapshot(`
           Array [
             Object {
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 10,
               "type": "schedule-render",
               "warning": null,
@@ -1927,14 +1934,14 @@ describe('Timeline profiler', () => {
         expect(timelineData.schedulingEvents).toMatchInlineSnapshot(`
           Array [
             Object {
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 10,
               "type": "schedule-render",
               "warning": null,
             },
             Object {
               "componentName": "Example",
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 21,
               "type": "schedule-state-update",
               "warning": null,
@@ -1975,14 +1982,14 @@ describe('Timeline profiler', () => {
         expect(timelineData.schedulingEvents).toMatchInlineSnapshot(`
           Array [
             Object {
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 10,
               "type": "schedule-render",
               "warning": null,
             },
             Object {
               "componentName": "Example",
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 20,
               "type": "schedule-state-update",
               "warning": null,
@@ -2170,7 +2177,7 @@ describe('Timeline profiler', () => {
         expect(timelineData.schedulingEvents).toMatchInlineSnapshot(`
           Array [
             Object {
-              "lanes": "0b0000000000000000000000000010000",
+              "lanes": "0b0000000000000000000000001000000",
               "timestamp": 10,
               "type": "schedule-render",
               "warning": null,
@@ -2359,7 +2366,7 @@ describe('Timeline profiler', () => {
                 "batchUID": 1,
                 "depth": 0,
                 "duration": 0,
-                "lanes": "0b0000000000000000000000000010000",
+                "lanes": "0b0000000000000000000000001000000",
                 "timestamp": 10,
                 "type": "render-idle",
               },
@@ -2367,7 +2374,7 @@ describe('Timeline profiler', () => {
                 "batchUID": 1,
                 "depth": 0,
                 "duration": 0,
-                "lanes": "0b0000000000000000000000000010000",
+                "lanes": "0b0000000000000000000000001000000",
                 "timestamp": 10,
                 "type": "render",
               },
@@ -2375,7 +2382,7 @@ describe('Timeline profiler', () => {
                 "batchUID": 1,
                 "depth": 0,
                 "duration": 0,
-                "lanes": "0b0000000000000000000000000010000",
+                "lanes": "0b0000000000000000000000001000000",
                 "timestamp": 10,
                 "type": "commit",
               },
@@ -2383,7 +2390,7 @@ describe('Timeline profiler', () => {
                 "batchUID": 1,
                 "depth": 1,
                 "duration": 0,
-                "lanes": "0b0000000000000000000000000010000",
+                "lanes": "0b0000000000000000000000001000000",
                 "timestamp": 10,
                 "type": "layout-effects",
               },
@@ -2391,7 +2398,7 @@ describe('Timeline profiler', () => {
                 "batchUID": 1,
                 "depth": 0,
                 "duration": 0,
-                "lanes": "0b0000000000000000000000000010000",
+                "lanes": "0b0000000000000000000000001000000",
                 "timestamp": 10,
                 "type": "passive-effects",
               },

@@ -64,11 +64,15 @@ import {retryIfBlockedOn} from '../events/ReactDOMEventReplaying';
 import {
   enableCreateEventHandleAPI,
   enableScopeAPI,
+  enableUnknownLane,
 } from 'shared/ReactFeatureFlags';
 import {HostComponent, HostText} from 'react-reconciler/src/ReactWorkTags';
 import {listenToAllSupportedEvents} from '../events/DOMPluginEventSystem';
 
-import {DefaultEventPriority} from 'react-reconciler/src/ReactEventPriorities';
+import {
+  DefaultEventPriority,
+  UnknownEventPriority,
+} from 'react-reconciler/src/ReactEventPriorities';
 
 // TODO: Remove this deep import when we delete the legacy root API
 import {ConcurrentMode, NoMode} from 'react-reconciler/src/ReactTypeOfMode';
@@ -368,7 +372,11 @@ export function createTextInstance(
 export function getCurrentEventPriority(): * {
   const currentEvent = window.event;
   if (currentEvent === undefined) {
-    return DefaultEventPriority;
+    if (enableUnknownLane) {
+      return UnknownEventPriority;
+    } else {
+      return DefaultEventPriority;
+    }
   }
   return getEventPriority(currentEvent.type);
 }
@@ -399,6 +407,16 @@ export const scheduleMicrotask: any =
           .then(callback)
           .catch(handleErrorInNextTick)
     : scheduleTimeout; // TODO: Determine the best fallback here.
+
+// -------------------
+//     requestAnimationFrame
+// -------------------
+export const supportsAnimationFrame =
+  typeof requestAnimationFrame === 'function';
+export const scheduleAnimationFrame: any =
+  typeof requestAnimationFrame === 'function'
+    ? requestAnimationFrame
+    : undefined;
 
 function handleErrorInNextTick(error) {
   setTimeout(() => {

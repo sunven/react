@@ -200,6 +200,7 @@ describe('ReactDOMFiberAsync', () => {
 
       // Should flush both updates now.
       jest.runAllTimers();
+      global.flushRequestAnimationFrameQueue();
       Scheduler.unstable_flushAll();
       expect(asyncValueRef.current.textContent).toBe('hello');
       expect(syncValueRef.current.textContent).toBe('hello');
@@ -236,6 +237,7 @@ describe('ReactDOMFiberAsync', () => {
 
       instance.setState({step: 1});
       expect(container.textContent).toEqual('0');
+      global.flushRequestAnimationFrameQueue();
       Scheduler.unstable_flushAll();
       expect(container.textContent).toEqual('1');
     });
@@ -283,6 +285,7 @@ describe('ReactDOMFiberAsync', () => {
       expect(ops).toEqual(['BC']);
 
       // Flush the async updates
+      global.flushRequestAnimationFrameQueue();
       Scheduler.unstable_flushAll();
       expect(container.textContent).toEqual('ABCD');
       expect(ops).toEqual(['BC', 'ABCD']);
@@ -308,6 +311,7 @@ describe('ReactDOMFiberAsync', () => {
       // Test that a normal update is async
       inst.increment();
       expect(container.textContent).toEqual('0');
+      global.flushRequestAnimationFrameQueue();
       Scheduler.unstable_flushAll();
       expect(container.textContent).toEqual('1');
 
@@ -544,6 +548,68 @@ describe('ReactDOMFiberAsync', () => {
 
       // Therefore the form should have been submitted.
       expect(formSubmitted).toBe(true);
+    });
+
+    // @gate enableUnknownLane
+    it.skip('batch default updates with existing unknown updates', () => {
+      let setState = null;
+      let counterRef = null;
+      function Counter() {
+        const [count, setCount] = React.useState(0);
+        const ref = React.useRef();
+        setState = setCount;
+        counterRef = ref;
+        Scheduler.unstable_yieldValue('Count: ' + count);
+        return <p ref={ref}>Count: {count}</p>;
+      }
+
+      const root = ReactDOMClient.createRoot(container);
+      act(() => {
+        root.render(<Counter />);
+      });
+      expect(Scheduler).toHaveYielded(['Count: 0']);
+
+      window.event = undefined;
+      setState(1);
+      window.event = 'test';
+      setState(2);
+
+      expect(Scheduler).toFlushAndYield([]);
+      expect(counterRef.current.textContent).toBe('Count: 0');
+      global.flushRequestAnimationFrameQueue();
+      expect(Scheduler).toHaveYielded(['Count: 2']);
+      expect(counterRef.current.textContent).toBe('Count: 2');
+    });
+
+    // @gate enableUnknownLane
+    it.skip('do not batch unknown updates with existing default updates', () => {
+      let setState = null;
+      let counterRef = null;
+      function Counter() {
+        const [count, setCount] = React.useState(0);
+        const ref = React.useRef();
+        setState = setCount;
+        counterRef = ref;
+        Scheduler.unstable_yieldValue('Count: ' + count);
+        return <p ref={ref}>Count: {count}</p>;
+      }
+
+      const root = ReactDOMClient.createRoot(container);
+      act(() => {
+        root.render(<Counter />);
+      });
+      expect(Scheduler).toHaveYielded(['Count: 0']);
+
+      window.event = 'test';
+      setState(1);
+      window.event = undefined;
+      setState(2);
+
+      expect(Scheduler).toFlushAndYield(['Count: 1']);
+      expect(counterRef.current.textContent).toBe('Count: 1');
+      global.flushRequestAnimationFrameQueue();
+      expect(Scheduler).toHaveYielded(['Count: 2']);
+      expect(counterRef.current.textContent).toBe('Count: 2');
     });
   });
 
