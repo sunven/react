@@ -126,10 +126,8 @@ function warnIfStringRefCannotBeAutoConverted(config) {
 }
 
 /**
- * Factory method to create a new React element. This no longer adheres to
- * the class pattern, so do not use new to call it. Also, instanceof check
- * will not work. Instead test $$typeof field against Symbol.for('react.element') to check
- * if something is a React Element.
+ * 创建新React元素的Factory方法。这不再遵循类模式，因此不要使用new来调用它。
+ * 此外，instanceof 将不起作用。而是根据$$typeof字段。值为Symbol.for('react.element')表示react元素
  *
  * @param {*} type
  * @param {*} props
@@ -356,7 +354,8 @@ export function jsxDEV(type, config, maybeKey, source, self) {
 }
 
 /**
- * Create and return a new ReactElement of the given type.
+ * 创建并返回给定类型的新 ReactElement。
+ * webpack编译时，替换JSX为createElement()
  * See https://reactjs.org/docs/react-api.html#createelement
  */
 export function createElement(type, config, children) {
@@ -387,7 +386,7 @@ export function createElement(type, config, children) {
 
     self = config.__self === undefined ? null : config.__self;
     source = config.__source === undefined ? null : config.__source;
-    // Remaining properties are added to a new props object
+    // 剩余的属性被添加到一个新的 props 对象中
     for (propName in config) {
       if (
         hasOwnProperty.call(config, propName) &&

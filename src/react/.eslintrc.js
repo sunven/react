@@ -24,7 +24,7 @@ module.exports = {
     // 'react-internal',
   ],
 
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaVersion: 9,
     sourceType: 'script',
@@ -176,9 +176,10 @@ module.exports = {
       // We apply these settings to the source files that get compiled.
       // They can use all features including JSX (but shouldn't use `var`).
       files: esNextPaths,
-      parser: 'babel-eslint',
+      parser: '@babel/eslint-parser',
       parserOptions: {
         ecmaVersion: 8,
+        // requireConfigFile: false,
         sourceType: 'module',
       },
       rules: {

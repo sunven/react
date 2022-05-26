@@ -14,38 +14,31 @@ if (__DEV__) {
 }
 
 /**
- * Base class helpers for the updating state of a component.
+ * 用于更新组件状态的基类助手。
  */
 function Component(props, context, updater) {
   this.props = props;
   this.context = context;
-  // If a component has string refs, we will assign a different object later.
+  // 如果一个组件有string refs，我们稍后会分配一个不同的对象。
   this.refs = emptyObject;
-  // We initialize the default updater but the real one gets injected by the
-  // renderer.
+  // 我们初始化了默认的更新器，但真正的更新器被渲染器注入
   this.updater = updater || ReactNoopUpdateQueue;
 }
 
 Component.prototype.isReactComponent = {};
 
 /**
- * Sets a subset of the state. Always use this to mutate
- * state. You should treat `this.state` as immutable.
+ * 总是用它来改变state。 您应该将 `this.state` 视为不可变的。
  *
- * There is no guarantee that `this.state` will be immediately updated, so
- * accessing `this.state` after calling this method may return the old value.
+ * 不能保证 `this.state` 会立即更新，所以调用此方法后访问 `this.state` 可能会返回旧值。
  *
- * There is no guarantee that calls to `setState` will run synchronously,
- * as they may eventually be batched together.  You can provide an optional
- * callback that will be executed when the call to setState is actually
- * completed.
+ * 不能保证对 `setState` 的调用会同步运行，因为它们最终可能会被批量处理。
+ * 您可以提供一个可选的回调，该回调将在对 setState 的调用实际完成时执行。
  *
- * When a function is provided to setState, it will be called at some point in
- * the future (not synchronously). It will be called with the up to date
- * component arguments (state, props, context). These values can be different
- * from this.* because your function may be called after receiveProps but before
- * shouldComponentUpdate, and this new state, props, and context will not yet be
- * assigned to this.
+ * 当一个函数被提供给 setState 时，它将在未来的某个时间点被调用（不是同步的）。
+ * 它将以最新的方式调用组件参数（state, props, context）。 这些值可能与 this 不同，
+ * 因为您的函数可能在 receiveProps 之后但在 shouldComponentUpdate 之前调用，
+ * 并且这个new state、props, context还不会分配给 this。
  *
  * @param {object|function} partialState Next partial state or function to
  *        produce next partial state to be merged with current state.
@@ -69,14 +62,11 @@ Component.prototype.setState = function(partialState, callback) {
 };
 
 /**
- * Forces an update. This should only be invoked when it is known with
- * certainty that we are **not** in a DOM transaction.
+ * 强制更新。只有当确定我们不在DOM事务中时，才应调用此命令
  *
- * You may want to call this when you know that some deeper aspect of the
- * component's state has changed but `setState` was not called.
+ * 当您知道组件状态的某些深层次方面已更改，但未调用“setState”时，您可能希望调用此函数
  *
- * This will not invoke `shouldComponentUpdate`, but it will invoke
- * `componentWillUpdate` and `componentDidUpdate`.
+ * 这不会调用“shouldComponentUpdate”，但会调用“componentWillUpdate”和“componentdiddupdate”`
  *
  * @param {?function} callback Called after update is complete.
  * @final
@@ -123,11 +113,13 @@ if (__DEV__) {
   }
 }
 
+// dummy:假的
 function ComponentDummy() {}
 ComponentDummy.prototype = Component.prototype;
 
 /**
  * Convenience component with default shallow equality check for sCU.
+ * 对 sCU 具有默认浅层相等检查的便利组件。
  */
 function PureComponent(props, context, updater) {
   this.props = props;
@@ -139,7 +131,8 @@ function PureComponent(props, context, updater) {
 
 const pureComponentPrototype = (PureComponent.prototype = new ComponentDummy());
 pureComponentPrototype.constructor = PureComponent;
-// Avoid an extra prototype jump for these methods.
+// 避免这些方法的额外原型跳转。 Object.assign()
+// 即：Component.prototype的方法可以直接在pureComponentPrototype上找到，不用顺着__proto__往上找
 assign(pureComponentPrototype, Component.prototype);
 pureComponentPrototype.isPureReactComponent = true;
 

@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+<https://github.com/bubucuo/DebugReact>
+
 ## 环境准备
 
 1、create-react-app 创建项目
@@ -22,7 +24,7 @@ __VARIANT__: false,
 
 ### config/webpack.config.js
 
-alias 增加
+alias 增加 (参考webpack.config.js文件)
 
 ### src/react/.eslintrc.js
 
