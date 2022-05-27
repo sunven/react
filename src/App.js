@@ -1,10 +1,11 @@
 import './App.css'
-// import {Component} from 'react'
+import Count from './components/Count'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">rrr</header>
+      <Count name="count" />
     </div>
   )
 }

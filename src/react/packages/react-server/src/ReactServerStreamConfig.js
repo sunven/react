@@ -7,8 +7,6 @@
  * @flow
  */
 
-/* eslint-disable react-internal/prod-error-codes */
-
 // We expect that our Rollup, Jest, and Flow configurations
 // always shim this module with the corresponding host config
 // (either provided by a renderer, or a generic shim for npm).
