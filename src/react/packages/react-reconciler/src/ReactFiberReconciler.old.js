@@ -326,6 +326,8 @@ export function updateContainer(
   if (__DEV__) {
     onScheduleRoot(container, element);
   }
+
+  // 获取 old fiber
   const current = container.current;
   const eventTime = requestEventTime();
   const lane = requestUpdateLane(current);
@@ -358,6 +360,7 @@ export function updateContainer(
     }
   }
 
+  // 创建更新
   const update = createUpdate(eventTime, lane);
   // Caution: React DevTools currently depends on this property
   // being called "element".
@@ -377,9 +380,12 @@ export function updateContainer(
     update.callback = callback;
   }
 
+  // 排队更新
   enqueueUpdate(current, update, lane);
+  // 处理更新
   const root = scheduleUpdateOnFiber(current, lane, eventTime);
   if (root !== null) {
+    // 处理非紧急更新
     entangleTransitions(root, current, lane);
   }
 
